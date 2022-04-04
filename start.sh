@@ -1,1 +1,2 @@
-python manage.py
+source ./venv/bin/activate
+sudo python manage.py

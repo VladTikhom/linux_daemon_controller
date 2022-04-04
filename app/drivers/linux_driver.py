@@ -13,7 +13,7 @@ class LinuxDriver:
 
     @classmethod
     def _prepare_command(cls, command: CommandOption):
-        return ["systemctl", command.value, cls.SERVICE_NAME]
+        return ["sudo", "systemctl", command.value, cls.SERVICE_NAME]
 
     @classmethod
     def start(cls):
