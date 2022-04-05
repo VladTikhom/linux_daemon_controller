@@ -1,5 +1,6 @@
-from enum import Enum
 import subprocess
+from enum import Enum
+from typing import List
 
 
 class CommandOption(Enum):
@@ -12,17 +13,21 @@ class LinuxDriver:
     SERVICE_NAME = "bluetooth"
 
     @classmethod
-    def _prepare_command(cls, command: CommandOption):
+    def _prepare_command(cls, command: CommandOption) -> List[str]:
         return ["sudo", "systemctl", command.value, cls.SERVICE_NAME]
 
     @classmethod
-    def start(cls):
-        subprocess.run(cls._prepare_command(CommandOption.START))
+    def _execute_command(cls, command: CommandOption) -> int:
+        return subprocess.run(cls._prepare_command(command)).returncode
 
     @classmethod
-    def stop(cls):
-        subprocess.run(cls._prepare_command(CommandOption.STOP))
+    def start(cls) -> int:
+        return cls._execute_command(CommandOption.START)
 
     @classmethod
-    def restart(cls):
-        subprocess.run(cls._prepare_command(CommandOption.RESTART))
+    def stop(cls) -> int:
+        return cls._execute_command(CommandOption.STOP)
+
+    @classmethod
+    def restart(cls) -> int:
+        return cls._execute_command(CommandOption.RESTART)
