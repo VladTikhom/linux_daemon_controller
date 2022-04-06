@@ -1,7 +1,8 @@
 import logging
+from logging import handlers
 
 
 def get_handler():
-    handler: logging.Handler = logging.handlers.StreamHandler(address='/dev/log')
+    handler = handlers.SysLogHandler(address='/dev/log')
     handler.setLevel(logging.INFO)
     return handler
