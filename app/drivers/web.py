@@ -1,5 +1,7 @@
 from aiohttp import web
+
 from app.routers import service_router, daemon_router
+from .logger import get_handler
 from .pickledb import PickleDB
 
 
@@ -19,4 +21,5 @@ class AioHTTPSetupDriver:
         app.add_routes(daemon_router)
         app.add_routes(service_router)
         app.on_cleanup.append(cls.disconnect_db)
+        app.logger.addHandler(get_handler())
         return app
