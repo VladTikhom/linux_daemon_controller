@@ -10,7 +10,10 @@ daemon_router = web.RouteTableDef()
 
 @daemon_router.get(prefix + "/state")
 async def state(request):
-    return web.Response(body=StateResponseModel(state=True).json())
+    if not ControllerService.state():
+        return web.Response(body=str({"error": "Service is not active"}), status=400)
+    daemon_state = LinuxDriver.state()
+    return web.Response(body=StateResponseModel(state=daemon_state).json())
 
 
 @daemon_router.post(prefix + "/enable")
