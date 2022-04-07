@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script>
+            function start_service() {
+                fetch(new Request('http://localhost:8080/service/enable', {method: 'POST'}));
+            }
+
+            function stop_service() {
+                fetch(new Request('http://localhost:8080/service/disable', {method: 'POST'}));
+            }
+
+            function start_daemon() {
+                fetch(new Request('http://localhost:8080/daemon/enable', {method: 'POST'}));
+            }
+
+            function stop_daemon() {
+                fetch(new Request('http://localhost:8080/daemon/disable', {method: 'POST'}));
+            }
+
+            function restart_daemon() {
+                fetch(new Request('http://localhost:8080/daemon/restart', {method: 'POST'}));
+            }
+        </script>
+        <title>Daemon controller</title>
+    </head>
+    <body>
+        <div>
+            <p>Service state: {{ service_state }}</p>
+            <p>Daemon state: {{ daemon_state }}</p>
+        </div>
+        <p id="demo">Привет, мир!</p>
+        <div>
+            <button type="button" onclick="start_service()">Start service</button>
+            <button type="button" onclick="stop_service()">Stop service</button>
+        </div>
+        <div>
+            <button type="button" onclick="start_daemon()">Start daemon</button>
+            <button type="button" onclick="stop_daemon()">Stop daemon</button>
+            <button type="button" onclick="restart_daemon()">Restart daemon</button>
+        </div>
+    </body>
+</html>

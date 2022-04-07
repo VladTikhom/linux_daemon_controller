@@ -1,7 +1,8 @@
+import aiohttp_jinja2
+import jinja2
 from aiohttp import web
 
 from app.routers import service_router, daemon_router
-from .logger import get_handler
 from .pickledb import PickleDB
 
 
@@ -22,4 +23,7 @@ class AioHTTPSetupDriver:
         app.add_routes(service_router)
         app.on_cleanup.append(cls.disconnect_db)
         app.logger.addHandler(get_handler())
+        aiohttp_jinja2.setup(
+            app, loader=jinja2.FileSystemLoader("./static/templates")
+        )
         return app
