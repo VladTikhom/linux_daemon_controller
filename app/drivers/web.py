@@ -2,6 +2,7 @@ import aiohttp_jinja2
 import jinja2
 from aiohttp import web
 
+from app.drivers.logger import get_handler
 from app.routers import service_router, daemon_router
 from .pickledb import PickleDB
 
